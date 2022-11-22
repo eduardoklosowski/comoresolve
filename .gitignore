@@ -1,0 +1,18 @@
+# Python
+*.py[cod]
+__pycache__
+/poetry.lock
+/dist
+
+# Development tools
+/.mypy_cache
+
+# Editors
+*.swp
+/.idea
+/.vscode/*
+!/.vscode/*.example
+
+# Others
+.DS_Store
+/datefile

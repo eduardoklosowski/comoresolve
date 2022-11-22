@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup poetry
+        run: pipx install poetry
+
+      - name: Setup poetry-dynamic-versioning
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Build package
+        run: make build
+
+      - name: Upload package
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/comoresolve-*.tar.gz
+            dist/comoresolve-*.whl
+
+      - name: Publish package
+        run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
