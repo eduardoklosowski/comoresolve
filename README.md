@@ -1,10 +1,10 @@
 # Como Resolve?
 
-Utilitário para encontrar soluções para problemas no Python.
+Utilitário para encontrar soluções para problemas no [Python](https://www.python.org/).
 
 ## Instalação
 
-Instale o pacote `comoresolve`. Exemplo:
+Instale o pacote `comoresolve` através do [PyPI](https://pypi.org/project/comoresolve/). Exemplo:
 
 ```sh
 pip install comoresolve
