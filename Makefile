@@ -1,6 +1,7 @@
 # Project
 
 SRC_DIR := src
+TESTS_DIR := tests
 VENV_DIR := .venv
 
 
@@ -28,8 +29,8 @@ init $(VENV_DIR):
 .PHONY: fmt
 
 fmt: $(VENV_DIR)
-	$(VENV_DIR)/bin/ruff check --select I001 --fix $(SRC_DIR)
-	$(VENV_DIR)/bin/ruff format $(SRC_DIR)
+	$(VENV_DIR)/bin/ruff check --select I001 --fix $(SRC_DIR) $(TESTS_DIR)
+	$(VENV_DIR)/bin/ruff format $(SRC_DIR) $(TESTS_DIR)
 
 
 # Lint
@@ -42,20 +43,23 @@ lint-pyproject: $(VENV_DIR)
 	$(VENV_DIR)/bin/validate-pyproject pyproject.toml
 
 lint-ruff-format: $(VENV_DIR)
-	$(VENV_DIR)/bin/ruff format --diff $(SRC_DIR)
+	$(VENV_DIR)/bin/ruff format --diff $(SRC_DIR) $(TESTS_DIR)
 
 lint-ruff-check: $(VENV_DIR)
-	$(VENV_DIR)/bin/ruff check $(SRC_DIR)
+	$(VENV_DIR)/bin/ruff check $(SRC_DIR) $(TESTS_DIR)
 
 lint-mypy: $(VENV_DIR)
-	$(VENV_DIR)/bin/mypy --show-error-context --pretty $(SRC_DIR)
+	$(VENV_DIR)/bin/mypy --show-error-context --pretty $(SRC_DIR) $(TESTS_DIR)
 
 
 # Test
 
-.PHONY: test
+.PHONY: test test-pytest
 
-test:
+test: test-pytest
+
+test-pytest: $(VENV_DIR)
+	$(VENV_DIR)/bin/pytest $(TESTS_DIR)
 
 
 # Clean
@@ -65,14 +69,14 @@ test:
 clean: clean-pycache clean-build clean-python-tools
 
 clean-pycache:
-	find $(SRC_DIR) -name '__pycache__' -exec rm -rf {} +
-	find $(SRC_DIR) -type d -empty -delete
+	find $(SRC_DIR) $(TESTS_DIR) -name '__pycache__' -exec rm -rf {} +
+	find $(SRC_DIR) $(TESTS_DIR) -type d -empty -delete
 
 clean-build:
 	rm -rf build dist $(SRC_DIR)/*.egg-info
 
 clean-python-tools:
-	rm -rf .ruff_cache .mypy_cache
+	rm -rf .ruff_cache .mypy_cache .pytest_cache
 
 clean-lock:
 	rm -rf pylock.toml

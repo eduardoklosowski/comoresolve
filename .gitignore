@@ -10,6 +10,7 @@ __pycache__
 *.egg-info
 /.ruff_cache
 /.mypy_cache
+/.pytest_cache
 
 # Editors
 *.swp

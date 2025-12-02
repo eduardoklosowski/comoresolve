@@ -41,12 +41,13 @@ dev = [
     "validate-pyproject[all]>=0.24,<0.25",
     "ruff>=0.14,<0.15",
     "mypy>=1.19,<1.20",
+    "pytest>=9.0,<9.1",
 ]
 
 [tool.ruff]
 target-version = "py310"
 line-length = 119
-src = ["src"]
+src = ["src", "tests"]
 
 [tool.ruff.format]
 line-ending = "lf"
@@ -55,6 +56,10 @@ quote-style = "single"
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = ["D", "COM812"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/test_*.py" = ["S101"]
+"tests/exemple_*.py" = ["T201"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -69,4 +74,7 @@ show_error_codes = true
 sqlite_cache = true
 strict = true
 plugins = []
-files = ["src/**/*.py"]
+files = ["src/**/*.py", "tests/**/*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
