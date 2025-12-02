@@ -40,7 +40,7 @@ comoresolve = "comoresolve:main"
 dev = [
     "validate-pyproject[all]>=0.24,<0.25",
     "ruff>=0.14,<0.15",
-    "mypy>=0.991,<1",
+    "mypy>=1.19,<1.20",
 ]
 
 [tool.ruff]
@@ -63,10 +63,10 @@ convention = "google"
 inline-quotes = "single"
 
 [tool.mypy]
-files = [
-    "./src/comoresolve/**/*.py",
-]
-follow_imports = "normal"
 warn_unused_configs = true
 show_column_numbers = true
 show_error_codes = true
+sqlite_cache = true
+strict = true
+plugins = []
+files = ["src/**/*.py"]
