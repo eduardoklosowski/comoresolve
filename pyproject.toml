@@ -39,26 +39,28 @@ comoresolve = "comoresolve:main"
 [dependency-groups]
 dev = [
     "validate-pyproject[all]>=0.24,<0.25",
-    "isort>=5.10,<6",
-    "autopep8>=2.0,<3",
-    "flake8>=5.0,<6",
+    "ruff>=0.14,<0.15",
     "mypy>=0.991,<1",
-    "bandit>=1.7,<2",
 ]
 
-[tool.isort]
-sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-line_length = 119
-multi_line_output = "HANGING_INDENT"
-indent = "    "
-float_to_top = true
-src_paths = [
-    "./src",
-]
+[tool.ruff]
+target-version = "py310"
+line-length = 119
+src = ["src"]
 
-[tool.autopep8]
-recursive = true
-aggressive = 3
+[tool.ruff.format]
+line-ending = "lf"
+quote-style = "single"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D", "COM812"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
 
 [tool.mypy]
 files = [
