@@ -4,8 +4,10 @@ __pycache__
 
 # Development tools
 /.venv
-/poetry.lock
+/pylock.toml
+/build
 /dist
+*.egg-info
 /.mypy_cache
 
 # Editors

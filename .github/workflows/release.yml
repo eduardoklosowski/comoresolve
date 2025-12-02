@@ -9,33 +9,67 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  build-package:
+    name: Build Package
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup poetry
-        run: pipx install poetry
-
-      - name: Setup poetry-dynamic-versioning
-        run: poetry self add "poetry-dynamic-versioning[plugin]"
+        uses: actions/checkout@v6
 
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.8"
+          python-version: "3.10"
 
-      - name: Build package
-        run: make build
+      - name: Setup build
+        run: pip install build
 
-      - name: Upload package
-        uses: softprops/action-gh-release@v1
+      - name: Build packages
+        run: python -m build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v5
+        with:
+          name: packages
+          path: dist
+          if-no-files-found: error
+
+  github-release:
+    name: Release on GitHub
+    needs: build-package
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: packages
+          path: dist
+
+      - name: Make release
+        uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/comoresolve-*.tar.gz
-            dist/comoresolve-*.whl
+            dist/*.tar.gz
+            dist/*.whl
+          fail_on_unmatched_files: true
+
+  pypi-publish:
+    name: Publish on PyPI
+    needs: github-release
+    runs-on: ubuntu-24.04
+    environment:
+      name: pypi
+      url: https://pypi.org/p/comoresolve
+    permissions:
+      id-token: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v6
+        with:
+          name: packages
+          path: dist
 
       - name: Publish package
-        run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
+        uses: pypa/gh-action-pypi-publish@release/v1
