@@ -10,7 +10,7 @@ parser.add_argument('path', help='caminho para o script Python')
 parser.add_argument('args', nargs='*', help='argumentos passados para o script')
 
 
-def main():
+def main() -> None:
     args = parser.parse_args()
 
     try:
@@ -19,7 +19,7 @@ def main():
             runpy.run_module(args.path, alter_sys=True)
         else:
             runpy.run_path(args.path)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         error_msg = f'{e.__class__.__name__}: {e}'
         url = f'https://duckduckgo.com/?{urlencode({"q": error_msg})}'
         webbrowser.open(url)
