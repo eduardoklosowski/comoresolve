@@ -11,12 +11,13 @@ authors = ["Eduardo Klosowski <eduardo_klosowski@yahoo.com>"]
 readme = "README.md"
 repository = "https://github.com/eduardoklosowski/comoresolve"
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Environment :: Console",
-  "Intended Audience :: Developers",
-  "Natural Language :: Portuguese (Brazilian)",
-  "Operating System :: OS Independent",
-  "Topic :: Software Development",
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development",
+    "Typing :: Typed",
 ]
 
 [tool.poetry.dependencies]
@@ -43,7 +44,7 @@ multi_line_output = "HANGING_INDENT"
 indent = "    "
 float_to_top = true
 src_paths = [
-  "comoresolve",
+    "./src",
 ]
 
 [tool.autopep8]
@@ -52,7 +53,7 @@ aggressive = 3
 
 [tool.mypy]
 files = [
-  "comoresolve/**/*.py",
+    "./src/comoresolve/**/*.py",
 ]
 follow_imports = "normal"
 warn_unused_configs = true

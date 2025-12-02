@@ -1,18 +1,17 @@
 # Python
 *.py[cod]
 __pycache__
-/poetry.lock
-/dist
 
 # Development tools
+/.venv
+/poetry.lock
+/dist
 /.mypy_cache
 
 # Editors
 *.swp
 /.idea
-/.vscode/*
-!/.vscode/*.example
+/.vscode
 
 # Others
 .DS_Store
-/datefile
