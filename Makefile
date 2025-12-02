@@ -54,12 +54,16 @@ lint-mypy: $(VENV_DIR)
 
 # Test
 
-.PHONY: test test-pytest
+.PHONY: test test-pytest test-coverage-report
 
 test: test-pytest
 
-test-pytest: $(VENV_DIR)
-	$(VENV_DIR)/bin/pytest $(TESTS_DIR)
+test-pytest .coverage: $(VENV_DIR)
+	$(VENV_DIR)/bin/coverage run -m pytest $(TESTS_DIR)
+	$(VENV_DIR)/bin/coverage report -m
+
+test-coverage-report: .coverage
+	$(VENV_DIR)/bin/coverage html
 
 
 # Clean
@@ -76,7 +80,7 @@ clean-build:
 	rm -rf build dist $(SRC_DIR)/*.egg-info
 
 clean-python-tools:
-	rm -rf .ruff_cache .mypy_cache .pytest_cache
+	rm -rf .ruff_cache .mypy_cache .pytest_cache .coverage .coverage.* htmlcov
 
 clean-lock:
 	rm -rf pylock.toml

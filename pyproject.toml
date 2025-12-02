@@ -42,6 +42,7 @@ dev = [
     "ruff>=0.14,<0.15",
     "mypy>=1.19,<1.20",
     "pytest>=9.0,<9.1",
+    "coverage>=7.12,<7.13",
 ]
 
 [tool.ruff]
@@ -78,3 +79,17 @@ files = ["src/**/*.py", "tests/**/*.py"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["src/**/__main__.py"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if (typing\\.)?TYPE_CHECKING:",
+    "@(abc\\.)?abstractmethod",
+    "class .*\\b(typing\\.)?Protocol\\):",
+    "if __name__ == '__main__':",
+]
