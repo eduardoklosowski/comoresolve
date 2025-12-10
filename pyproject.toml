@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comoresolve"
-version = "0.0.0"
+version = "0.2.0"
 description = "Utilitário para encontrar soluções para problemas no Python"
 authors = [
     {name = "Eduardo Klosowski", email = "eduardo_klosowski@yahoo.com"},
@@ -13,7 +13,7 @@ license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10,<4"
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Natural Language :: Portuguese (Brazilian)",
@@ -26,7 +26,6 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development",
     "Typing :: Typed",
-    "Private :: Do Not Upload",
 ]
 
 [project.urls]
