@@ -26,7 +26,3 @@ def main() -> None:
         error_msg = f'{e.__class__.__name__}: {e}'
         url = f'{BASE_URL}?{urlencode({"q": error_msg})}'
         webbrowser.open(url)
-
-
-if __name__ == '__main__':
-    main()
