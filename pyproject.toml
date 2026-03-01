@@ -39,7 +39,7 @@ comoresolve = "comoresolve:main"
 [dependency-groups]
 dev = [
     "validate-pyproject[all]>=0.24,<0.25",
-    "ruff>=0.14,<0.15",
+    "ruff>=0.14,<0.16",
     "mypy>=1.19,<1.20",
     "pytest>=9.0,<9.1",
     "coverage>=7.12,<7.13",
